@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Iris Voss — Photography &amp; Film</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;1,9..144,400;1,9..144,500&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<nav class="nav" id="nav">
+  <a href="#top" class="nav__mark">IRIS<span>·</span>VOSS</a>
+  <ul class="nav__links">
+    <li><a href="#work">Work</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<header class="hero" id="top">
+  <img class="hero__img" src="https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?q=80&w=2000&auto=format&fit=crop" alt="Mist rolling over a highland valley at dawn">
+  <div class="hero__content">
+    <p class="hero__eyebrow">Photography &amp; Film — Est. 2016</p>
+    <h1>
+      <span class="line"><span>Some moments</span></span>
+      <span class="line"><span>ask to be kept.</span></span>
+    </h1>
+    <p class="hero__sub">Portrait, documentary and wedding work, shot on film and digital between Lisbon and wherever the next assignment leads.</p>
+  </div>
+  <div class="hero__scroll"><span>Scroll</span><span class="bar"></span></div>
+</header>
+
+<section id="work">
+  <div class="section__head">
+    <h2>Selected work</h2>
+    <p>A contact sheet of recent commissions and personal projects, portrait through motion.</p>
+  </div>
+  <div class="filters" id="filters">
+    <button class="active" data-filter="all">All</button>
+    <button data-filter="portrait">Portrait</button>
+    <button data-filter="documentary">Documentary</button>
+    <button data-filter="wedding">Wedding</button>
+    <button data-filter="motion">Motion</button>
+  </div>
+  <div class="grid" id="grid"></div>
+</section>
+
+<section id="about">
+  <div class="about">
+    <div class="about__img"><img src="https://picsum.photos/id/1000/900/1100" alt="Iris Voss at work"></div>
+    <div>
+      <p class="eyebrow">About</p>
+      <h2>Trained in the darkroom. Still watching the light.</h2>
+      <p>Iris Voss makes portraits, documentary work and wedding films for people who don't perform for the camera. The process starts the same way it did fifteen years ago in a college darkroom — watch closely, wait for the unguarded second, print it honestly.</p>
+      <p>Recent work has moved between coastal weddings in Portugal, long-form documentary projects in the Balkans, and editorial portraits shot on medium format film. Every project, regardless of format, is edited down to the frames that actually happened.</p>
+      <div class="about__stats">
+        <div><b>9Y</b><span>Behind the camera</span></div>
+        <div><b>31</b><span>Countries worked in</span></div>
+        <div><b>140+</b><span>Weddings &amp; films</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="contact" class="contact">
+  <div class="contact__row">
+    <div>
+      <p class="eyebrow">Get in touch</p>
+      <a class="contact__email" href="mailto:iris@irisvoss.studio">iris@irisvoss.studio</a>
+    </div>
+    <h2>Available for editorial, documentary and wedding commissions worldwide.</h2>
+  </div>
+  <div class="contact__meta">
+    <span>Based in Lisbon, PT</span>
+    <a href="#">Instagram — @irisvoss.studio</a>
+    <a href="#">Journal</a>
+    <a href="#">Press kit</a>
+  </div>
+</section>
+
+<footer>
+  <span>© 2026 Iris Voss. All prints reserved.</span>
+  <button id="toTop">Back to top ↑</button>
+</footer>
+
+<div class="lightbox" id="lightbox">
+  <div class="lightbox__frame">
+    <button class="lightbox__close" id="lbClose">Close ✕</button>
+    <button class="lightbox__prev" id="lbPrev">‹</button>
+    <img id="lbImg" src="" alt="">
+    <button class="lightbox__next" id="lbNext">›</button>
+    <div class="lightbox__cap">
+      <span class="lc-title" id="lcTitle"></span>
+      <span class="lc-cat" id="lcCat"></span>
+      <span class="lc-meta" id="lcMeta"></span>
+    </div>
+  </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
