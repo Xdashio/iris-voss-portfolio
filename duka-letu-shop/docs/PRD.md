@@ -66,6 +66,8 @@ Product names and models were read from photos and may be wrong in places (for e
 
 ## Design system rules (Wellups) and how UI must be built
 
+> **Superseded (2 Nov 2026):** the prototype build brief replaced the Wellups design system with an original one, documented in [`DESIGN_SYSTEM.md`](../DESIGN_SYSTEM.md). The tokens below are kept for history only. The process rules (states on every page, 1440px and 390px checks, accessibility) still apply.
+
 ### Process rules (read these first)
 
 1. Before any UI work, read the design system sources: the Wellups repo docs (`FRONTEND_DESIGN_SYSTEM.md`, `DESIGN.md`, `ANIMATIONS.md`), `app/globals.css` and `prototype/welllups.html`. Do not start from memory or from a generic look.

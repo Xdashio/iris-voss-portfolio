@@ -55,7 +55,7 @@ export function CheckoutPage() {
   // Cash is pickup-only.
   useEffect(() => { if (fulfilment === "delivery" && payment === "cash") setPayment("mpesa_till"); }, [fulfilment, payment]);
 
-  if (!snap) return <div className="container-page pt-8"><Skeleton className="mb-6 h-9 w-48" /><div className="grid gap-6 lg:grid-cols-[1fr_380px]"><Skeleton className="h-[480px]" /><Skeleton className="h-72" /></div></div>;
+  if (!snap) return <div className="container-page pt-8"><Skeleton className="mb-6 h-9 w-48" /><div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_380px]"><Skeleton className="h-[480px]" /><Skeleton className="h-72" /></div></div>;
 
   const { settings } = snap.data;
   const rows = cartRows(snap.data, snap.cart).filter((r) => !r.unavailable);
@@ -109,7 +109,7 @@ export function CheckoutPage() {
       <Link href="/cart" className="mb-3 inline-flex items-center gap-1.5 text-sm font-semibold text-brand-600 hover:text-brand-700"><ArrowLeft className="h-4 w-4" aria-hidden /> Back to cart</Link>
       <h1 className="text-[28px] sm:text-[34px]">Checkout</h1>
 
-      <form noValidate onSubmit={submit} className="mt-6 grid items-start gap-6 lg:grid-cols-[1fr_380px] lg:gap-8">
+      <form noValidate onSubmit={submit} className="mt-6 grid items-start gap-6 lg:grid-cols-[minmax(0,1fr)_380px] lg:gap-8">
         <div className="space-y-6">
           <section className="rounded-md border border-line bg-surface p-5 sm:p-6" aria-labelledby="s1">
             <h2 id="s1" className="flex items-center gap-2.5 text-lg"><span className="num flex h-6 w-6 items-center justify-center rounded-full bg-ink-800 text-[12px] text-white">1</span> Your details</h2>

@@ -86,7 +86,7 @@ export function OrderDetailView({ order: o, settings, showConfirmHero }: { order
         <p className="mt-6 rounded-sm bg-canvas px-4 py-3 text-sm"><b>Next: </b>{nextSteps(o)}</p>
       </section>
 
-      <div className="mt-6 grid gap-6 md:grid-cols-[1.4fr_1fr]">
+      <div className="mt-6 grid gap-6 md:grid-cols-[minmax(0,1.4fr)_minmax(0,1fr)]">
         <section className="rounded-md border border-line bg-surface" aria-labelledby="items">
           <h2 id="items" className="border-b border-line px-5 py-4 text-lg">Items</h2>
           <ul className="divide-y divide-line px-5">

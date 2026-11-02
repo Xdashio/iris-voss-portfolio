@@ -6,7 +6,7 @@ import { ArrowRight, ClipboardList, PackageX, TriangleAlert, ScanBarcode, Globe,
 import type { ActivityEntry } from "@/types";
 import { useApp } from "@/hooks/useApp";
 import { DAY, countsAsSale, salesByDay, startOfDay, topSellers } from "@/lib/calculations";
-import { fmtTime, money, timeAgo } from "@/lib/format";
+import { fmtTime, money, plural, timeAgo } from "@/lib/format";
 import { ProductImage } from "../shared/ProductImage";
 import { PaymentBadge, StatusBadge } from "../shared/OrderBits";
 import { Badge, Skeleton, cx } from "../shared/ui";
@@ -89,7 +89,7 @@ export function DashboardPage() {
           foot={`of ${s.products} products (${s.published} live)`} />
       </section>
 
-      <div className="mt-6 grid gap-6 xl:grid-cols-[1.6fr_1fr]">
+      <div className="mt-6 grid grid-cols-[minmax(0,1fr)] gap-6 xl:grid-cols-[minmax(0,1.6fr)_minmax(0,1fr)]">
         <section className="rounded-md border border-line bg-surface p-5" aria-labelledby="chart-t">
           <h2 id="chart-t" className="mb-1 text-lg">Sales, last 7 days</h2>
           <p className="mb-4 text-[13px] text-text-3">Shop till and paid online orders, KES</p>
@@ -113,7 +113,7 @@ export function DashboardPage() {
         </section>
       </div>
 
-      <div className="mt-6 grid gap-6 xl:grid-cols-[1.6fr_1fr]">
+      <div className="mt-6 grid grid-cols-[minmax(0,1fr)] gap-6 xl:grid-cols-[minmax(0,1.6fr)_minmax(0,1fr)]">
         <section className="rounded-md border border-line bg-surface" aria-labelledby="ord-t">
           <div className="flex items-center justify-between border-b border-line px-5 py-4">
             <h2 id="ord-t" className="text-lg">Recent online orders</h2>
@@ -124,7 +124,7 @@ export function DashboardPage() {
               <li key={o.id}>
                 <Link href={`/staff/orders?open=${o.id}`} className="flex flex-wrap items-center gap-x-3 gap-y-1 px-5 py-3 hover:bg-canvas">
                   <span className="num w-20 text-sm font-bold">{o.number}</span>
-                  <span className="min-w-0 flex-1 truncate text-sm">{o.customer.name} <span className="text-text-3">· {o.items.reduce((a, i) => a + i.qty, 0)} items · {o.fulfilment === "pickup" ? "Pickup" : "Delivery"}</span></span>
+                  <span className="min-w-0 flex-1 truncate text-sm">{o.customer.name} <span className="text-text-3">· {plural(o.items.reduce((a, i) => a + i.qty, 0), "item")} · {o.fulfilment === "pickup" ? "Pickup" : "Delivery"}</span></span>
                   <span className="flex items-center gap-2"><StatusBadge status={o.status} /><PaymentBadge status={o.paymentStatus} /></span>
                   <span className="num w-24 text-right text-sm font-semibold">{money(o.total)}</span>
                 </Link>

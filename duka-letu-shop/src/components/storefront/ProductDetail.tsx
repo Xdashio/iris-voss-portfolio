@@ -90,7 +90,7 @@ export function ProductDetail({ slug }: { slug: string }) {
         </ol>
       </nav>
 
-      <div className="grid gap-6 md:grid-cols-[1.1fr_1fr] md:gap-10 lg:gap-14">
+      <div className="grid gap-6 md:grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)] md:gap-10 lg:gap-14">
         {/* Gallery */}
         <div className="md:sticky md:top-40 md:self-start">
           <ProductImage src={images[img]} alt={`${product.name}, photo ${img + 1} of ${images.length}`} fit="contain" priority
@@ -148,7 +148,7 @@ export function ProductDetail({ slug }: { slug: string }) {
               <Button size="lg" className="flex-1" onClick={() => add(false)} disabled={variant.stock <= 0 || room <= 0}>
                 <ShoppingBag className="h-5 w-5" aria-hidden /> {variant.stock <= 0 ? "Out of stock" : room <= 0 ? "All in your cart" : "Add to cart"}
               </Button>
-              <Button size="lg" variant="accent" className="hidden sm:inline-flex" onClick={() => add(true)} disabled={variant.stock <= 0 || room <= 0}>
+              <Button size="lg" variant="accent" className="max-sm:hidden" onClick={() => add(true)} disabled={variant.stock <= 0 || room <= 0}>
                 Buy now
               </Button>
             </div>

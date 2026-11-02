@@ -78,7 +78,7 @@ export function PosPage() {
       && (!t || `${p.name} ${p.brand} ${p.sku} ${p.variants.map((v) => `${v.sku} ${v.label}`).join(" ")}`.toLowerCase().includes(t)));
   }, [snap, q, cat]);
 
-  if (!snap) return <div className="grid gap-4 lg:grid-cols-[1fr_380px]"><Skeleton className="h-[70vh] rounded-md" /><Skeleton className="h-[70vh] rounded-md" /></div>;
+  if (!snap) return <div className="grid gap-4 lg:grid-cols-[minmax(0,1fr)_380px]"><Skeleton className="h-[70vh] rounded-md" /><Skeleton className="h-[70vh] rounded-md" /></div>;
 
   const rows = lines.map((l) => ({ l, hit: findVariant(snap.data, l.productId, l.variantId) })).filter((r) => r.hit) as { l: CartLine; hit: NonNullable<ReturnType<typeof findVariant>> }[];
   const total = rows.reduce((s, r) => s + r.hit.variant.price * r.l.qty, 0);
@@ -139,7 +139,7 @@ export function PosPage() {
         )}
       </div>
       <div className="space-y-3 border-t border-line bg-canvas/70 p-4">
-        <div className="flex items-baseline justify-between"><span className="font-semibold">Total <span className="num font-normal text-text-3">· {count} items</span></span><Price value={total} size="xl" /></div>
+        <div className="flex items-baseline justify-between"><span className="font-semibold">Total <span className="num font-normal text-text-3">· {count === 1 ? "1 item" : `${count} items`}</span></span><Price value={total} size="xl" /></div>
         <Segmented label="Payment method" value={pay} onChange={setPay} options={[{ value: "cash", label: <><Banknote className="h-4 w-4" aria-hidden /> Cash</> }, { value: "mpesa", label: <><Smartphone className="h-4 w-4" aria-hidden /> M-Pesa</> }]} />
         {pay === "cash" ? (
           <div>
@@ -170,7 +170,7 @@ export function PosPage() {
       <div className="mb-4 flex flex-wrap items-end justify-between gap-2">
         <div><h1 className="text-[24px] sm:text-[28px]">Point of sale</h1><p className="text-sm text-text-2">Cashier: {staff?.name} · Sales come off the same stock as the website.</p></div>
       </div>
-      <div className="grid items-start gap-4 lg:grid-cols-[1fr_380px]">
+      <div className="grid items-start gap-4 lg:grid-cols-[minmax(0,1fr)_380px]">
         <section aria-label="Products" className="min-w-0">
           <form className="relative" onSubmit={(e) => { e.preventDefault(); onSearchEnter(); }}>
             <label htmlFor="pos-q" className="sr-only">Search product or scan SKU</label>
@@ -216,7 +216,7 @@ export function PosPage() {
       {/* Mobile sale bar */}
       <div className="fixed inset-x-0 bottom-0 z-30 border-t border-line bg-surface p-3 lg:hidden">
         <Button size="lg" variant={count ? "accent" : "outline"} block onClick={() => setCartOpen(true)}>
-          <ShoppingCart className="h-5 w-5" aria-hidden /> Current sale · {count} items · {money(total)}
+          <ShoppingCart className="h-5 w-5" aria-hidden /> Current sale · {count === 1 ? "1 item" : `${count} items`} · {money(total)}
         </Button>
       </div>
       <div className="h-20 lg:hidden" aria-hidden />

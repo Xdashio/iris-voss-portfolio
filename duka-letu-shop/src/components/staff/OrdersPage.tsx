@@ -7,7 +7,7 @@ import type { Order } from "@/types";
 import { useStaff } from "@/hooks/useApp";
 import { advanceOrder, cancelOrder, recordOrderPayment } from "@/lib/actions";
 import { NEXT_ACTION_LABEL, PAYMENT_LABEL, isFinal, nextStatus } from "@/lib/orders";
-import { fmtDateTime, fmtPhone, money, timeAgo } from "@/lib/format";
+import { fmtDateTime, fmtPhone, money, plural, timeAgo } from "@/lib/format";
 import { can } from "@/lib/permissions";
 import { useToast } from "../shared/toast";
 import { ProductImage } from "../shared/ProductImage";
@@ -193,7 +193,7 @@ function OrdersInner() {
                       <span className="block text-[12px] text-text-3">{timeAgo(o.createdAt)}</span>
                     </td>
                     <td className="px-4 py-3"><span className="font-medium">{o.customer.name}</span><span className="num block text-[12px] text-text-3">{fmtPhone(o.customer.phone)}</span></td>
-                    <td className="px-4 py-3">{o.fulfilment === "pickup" ? "Pickup" : `Delivery · ${o.zoneName}`}<span className="block text-[12px] text-text-3">{o.items.reduce((a, i) => a + i.qty, 0)} items</span></td>
+                    <td className="px-4 py-3">{o.fulfilment === "pickup" ? "Pickup" : `Delivery · ${o.zoneName}`}<span className="block text-[12px] text-text-3">{plural(o.items.reduce((a, i) => a + i.qty, 0), "item")}</span></td>
                     <td className="px-4 py-3"><StatusBadge status={o.status} /></td>
                     <td className="px-4 py-3"><PaymentBadge status={o.paymentStatus} /><span className="block text-[12px] text-text-3">{PAYMENT_LABEL[o.paymentMethod]}</span></td>
                     <td className="num px-4 py-3 text-right font-semibold">{money(o.total)}</td>

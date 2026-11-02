@@ -23,7 +23,7 @@ export function CartPage() {
   }, [snap]);
 
   if (!snap) {
-    return <div className="container-page pt-8"><Skeleton className="mb-6 h-9 w-40" /><div className="grid gap-6 lg:grid-cols-[1fr_360px]"><Skeleton className="h-64" /><Skeleton className="h-56" /></div></div>;
+    return <div className="container-page pt-8"><Skeleton className="mb-6 h-9 w-40" /><div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_360px]"><Skeleton className="h-64" /><Skeleton className="h-56" /></div></div>;
   }
 
   const rows = cartRows(snap.data, snap.cart);
@@ -57,7 +57,7 @@ export function CartPage() {
         </div>
       )}
 
-      <div className="mt-6 grid items-start gap-6 lg:grid-cols-[1fr_360px] lg:gap-8">
+      <div className="mt-6 grid items-start gap-6 lg:grid-cols-[minmax(0,1fr)_360px] lg:gap-8">
         <ul className="divide-y divide-line rounded-md border border-line bg-surface">
           {rows.map(({ line, product, variant, unavailable, overStock }) => (
             <li key={`${line.productId}-${line.variantId}`} className="flex gap-3 p-3 sm:gap-4 sm:p-4">

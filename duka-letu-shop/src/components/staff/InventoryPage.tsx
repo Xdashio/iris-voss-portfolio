@@ -175,7 +175,24 @@ function InventoryInner() {
 
       <div className="overflow-hidden rounded-md border border-line bg-surface">
         {tab === "levels" ? (filtered.length === 0 ? <EmptyState icon={<Warehouse />} title="Nothing here" body={level ? "No variants at this stock level. Nice." : "No products match your search."} /> : (
-          <div className="overflow-x-auto">
+          <>
+          <ul className="divide-y divide-line md:hidden">
+            {filtered.map(({ p, v }) => (
+              <li key={v.id} className="flex items-center gap-3 px-4 py-3">
+                <ProductImage src={p.images[0]} alt="" className="h-11 w-11 shrink-0 rounded-sm" />
+                <div className="min-w-0 flex-1">
+                  <p className="truncate text-sm font-semibold">{p.name}</p>
+                  <p className="num truncate text-[12px] text-text-3">{v.label} · {v.sku}</p>
+                  <div className="mt-1"><StockBadge stock={v.stock} threshold={th} /></div>
+                </div>
+                <div className="flex flex-col items-end gap-1.5">
+                  <span className="num font-display text-lg font-bold leading-none">{v.stock}</span>
+                  {canAdjust && <Button size="sm" variant="outline" onClick={() => setAdjust({ row: { p, v } })} aria-label={`Adjust stock for ${p.name} ${v.label}`}>Adjust</Button>}
+                </div>
+              </li>
+            ))}
+          </ul>
+          <div className="hidden overflow-x-auto md:block">
             <table className="w-full min-w-[640px] text-sm">
               <thead className="border-b border-line bg-canvas text-left text-[12px] uppercase tracking-wider text-text-3">
                 <tr><th className="px-4 py-2.5 font-semibold">Product</th><th className="px-4 py-2.5 font-semibold">SKU</th><th className="px-4 py-2.5 text-right font-semibold">Qty</th>
@@ -196,8 +213,21 @@ function InventoryInner() {
               </tbody>
             </table>
           </div>
+          </>
         )) : (moves.length === 0 ? <EmptyState icon={<History />} title="No movements found" /> : (
-          <div className="overflow-x-auto">
+          <>
+          <ul className="divide-y divide-line md:hidden">
+            {moves.map((m) => (
+              <li key={m.id} className="px-4 py-3 text-sm">
+                <div className="flex items-start justify-between gap-3">
+                  <p className="min-w-0"><b className="block truncate">{m.productName}</b><span className="text-[12px] text-text-3">{m.variantLabel} · {MOVE_LABEL[m.type]}</span></p>
+                  <span className={cx("num shrink-0 text-right font-bold", m.change > 0 ? "text-success-600" : "text-text")}>{m.change > 0 ? `+${m.change}` : m.change}<span className="block text-[12px] font-normal text-text-3">{m.before} → {m.after}</span></span>
+                </div>
+                <p className="mt-1 text-[12px] text-text-2">{m.reason}{m.ref ? ` · ${m.ref}` : ""} · {m.staffName} · <span className="num">{fmtDateTime(m.at)}</span></p>
+              </li>
+            ))}
+          </ul>
+          <div className="hidden overflow-x-auto md:block">
             <table className="w-full min-w-[820px] text-sm">
               <thead className="border-b border-line bg-canvas text-left text-[12px] uppercase tracking-wider text-text-3">
                 <tr><th className="px-4 py-2.5 font-semibold">When</th><th className="px-4 py-2.5 font-semibold">Product</th><th className="px-4 py-2.5 font-semibold">Type</th>
@@ -218,6 +248,7 @@ function InventoryInner() {
               </tbody>
             </table>
           </div>
+          </>
         ))}
       </div>
       {adjust && <AdjustDialog initial={adjust.row} onClose={() => setAdjust(null)} />}
