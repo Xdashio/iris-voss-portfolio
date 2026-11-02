@@ -1,0 +1,152 @@
+@import "tailwindcss";
+@import "@fontsource-variable/bricolage-grotesque";
+@import "@fontsource-variable/hanken-grotesk";
+
+/*
+ * Duka design tokens. Documented in DESIGN_SYSTEM.md — keep the two in sync.
+ * Palette: deep "ink" teal for brand surfaces and primary actions, a single
+ * warm "marigold" accent, warm stone neutrals. One light theme.
+ */
+@theme {
+  --font-display: "Bricolage Grotesque Variable", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "Hanken Grotesk Variable", ui-sans-serif, system-ui, sans-serif;
+
+  /* Brand */
+  --color-ink-950: #071d21;
+  --color-ink-900: #0b2a2f;
+  --color-ink-800: #113a40;
+  --color-ink-700: #1b4d54;
+  --color-brand-700: #0b5753;
+  --color-brand-600: #0f6e68;
+  --color-brand-500: #16837c;
+  --color-brand-100: #d7ebe7;
+  --color-brand-50: #edf6f4;
+  --color-marigold-600: #d9961c;
+  --color-marigold-500: #f2b13a;
+  --color-marigold-200: #f9dc9f;
+  --color-marigold-100: #fcf0d6;
+  --color-clay-600: #a8492a;
+  --color-clay-100: #f6e2d8;
+
+  /* Neutrals (warm stone) */
+  --color-canvas: #f6f4ef;
+  --color-surface: #ffffff;
+  --color-sunken: #efece5;
+  --color-line: #e3dfd5;
+  --color-line-strong: #cbc5b8;
+  --color-text: #1c2321;
+  --color-text-2: #4f5754;
+  --color-text-3: #767d7a;
+
+  /* Status */
+  --color-success-600: #1e7b4a;
+  --color-success-100: #dcefe3;
+  --color-warning-600: #9a6512;
+  --color-warning-100: #fbecc9;
+  --color-danger-600: #bf3329;
+  --color-danger-100: #f8dfdc;
+  --color-info-600: #275f9e;
+  --color-info-100: #dde8f5;
+
+  /* Shape */
+  --radius-xs: 3px;
+  --radius-sm: 4px;
+  --radius-md: 6px;
+  --radius-lg: 10px;
+
+  /* Elevation: overlays only */
+  --shadow-pop: 0 1px 2px rgb(11 42 47 / 0.06), 0 8px 24px rgb(11 42 47 / 0.12);
+  --shadow-dialog: 0 2px 4px rgb(11 42 47 / 0.08), 0 24px 60px rgb(11 42 47 / 0.22);
+
+  --breakpoint-xs: 420px;
+}
+
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+    color-scheme: light;
+  }
+  body {
+    background: var(--color-canvas);
+    color: var(--color-text);
+    font-family: var(--font-sans);
+    font-size: 15px;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+  }
+  h1, h2, h3, h4 {
+    font-family: var(--font-display);
+    letter-spacing: -0.015em;
+    line-height: 1.15;
+    font-weight: 700;
+  }
+  :focus-visible {
+    outline: 2px solid var(--color-brand-500);
+    outline-offset: 2px;
+  }
+  ::selection {
+    background: var(--color-marigold-200);
+  }
+  button:not(:disabled), [role="button"]:not([aria-disabled="true"]) {
+    cursor: pointer;
+  }
+}
+
+@layer components {
+  .container-page {
+    width: 100%;
+    max-width: 1280px;
+    margin-inline: auto;
+    padding-inline: 16px;
+  }
+  @media (min-width: 640px) { .container-page { padding-inline: 24px; } }
+  @media (min-width: 1024px) { .container-page { padding-inline: 32px; } }
+
+  .num { font-variant-numeric: tabular-nums; }
+
+  /* Signature motif: the "shelf edge" — a two-tone rule used under the header
+     and above the footer. */
+  .shelf-edge {
+    height: 4px;
+    background: linear-gradient(90deg, var(--color-marigold-500) 0 72px, var(--color-ink-700) 72px 100%);
+  }
+
+  .skeleton {
+    background: linear-gradient(90deg, var(--color-sunken) 0%, #f7f5f0 50%, var(--color-sunken) 100%);
+    background-size: 200% 100%;
+    animation: shimmer 1.4s linear infinite;
+  }
+}
+
+@keyframes shimmer { to { background-position: -200% 0; } }
+@keyframes fade-in { from { opacity: 0; } to { opacity: 1; } }
+@keyframes rise-in { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+@keyframes slide-in-right { from { transform: translateX(100%); } to { transform: none; } }
+@keyframes slide-in-left { from { transform: translateX(-100%); } to { transform: none; } }
+
+.anim-fade { animation: fade-in 160ms ease-out both; }
+.anim-rise { animation: rise-in 200ms cubic-bezier(.2,.7,.3,1) both; }
+.anim-drawer-right { animation: slide-in-right 220ms cubic-bezier(.2,.7,.3,1) both; }
+.anim-drawer-left { animation: slide-in-left 220ms cubic-bezier(.2,.7,.3,1) both; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Receipt printing: only the receipt is printed. */
+@media print {
+  body * { visibility: hidden !important; }
+  .print-area, .print-area * { visibility: visible !important; }
+  .print-area {
+    position: absolute; inset: 0 auto auto 0;
+    width: 80mm; padding: 0; margin: 0;
+    box-shadow: none !important; border: 0 !important;
+    color: #000 !important; background: #fff !important;
+  }
+  @page { size: 80mm auto; margin: 4mm; }
+}

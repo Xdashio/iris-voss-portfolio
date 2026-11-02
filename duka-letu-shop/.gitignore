@@ -1,0 +1,8 @@
+node_modules/
+.next/
+out/
+next-env.d.ts
+*.tsbuildinfo
+# Raw shop photos (23 MB) are kept out of git; processed copies live in public/products.
+assets/raw/
+assets/*.zip
