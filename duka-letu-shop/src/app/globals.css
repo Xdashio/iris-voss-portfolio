@@ -48,6 +48,10 @@
   --color-info-600: #275f9e;
   --color-info-100: #dde8f5;
 
+  /* Data viz (validated: CVD ΔE 12.1, chroma & lightness pass) */
+  --color-chart-shop: #008a7e;
+  --color-chart-online: #c47f00;
+
   /* Shape */
   --radius-xs: 3px;
   --radius-sm: 4px;
